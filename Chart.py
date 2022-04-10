@@ -59,7 +59,7 @@ ST_Form_2.form_submit_button("Submit")
 Entry_Time = timedelta( hours=list(Time_Input)[0].hour, minutes = list(Time_Input)[0].minute )
 Exit_Time  = timedelta( hours=list(Time_Input)[1].hour, minutes = list(Time_Input)[1].minute )
 
-Index_csv_2 = Main_Dict["Index_csv_2"]
+Index_csv_2 = Main_Dict["Index_csv_2"].reindex(pd.date_range(Entry_Date + Entry_Time, Exit_Date + Exit_Time, freq = '1min')).between_time('09:16','15:30')
 
 Index_Entry = Index_csv_2.o[Entry_Date + Entry_Time]
 Index_Exit  = Index_csv_2.o[Exit_Date  + Exit_Time ]
@@ -73,13 +73,12 @@ pe_atm = (round(Index_csv_2.o[Entry_Date + Entry_Time]//Index_Dist)+1)*Index_Dis
 
 st.write(ce_atm, pe_atm)
 
-Percentage_Completed = Max_Profit = j = k = 0
+Max_Profit = j = k = 0
 
 
 
 
 
-Progress_Strart_time = datetime.now().replace(microsecond=0)
 
 while Entry_Date + timedelta(days = k) != Exit_Date:
 	
@@ -91,16 +90,14 @@ while Entry_Date + timedelta(days = k) != Exit_Date:
 	
 	k = k + 1
 
-my_bar = st.progress(0)
-
 for i in range((Sell_Dist)[0], (Sell_Dist)[1]+1, 1):
 	
 	Final_DF = pd.DataFrame()
 	
 	ce_sell_dist, pe_sell_dist = i, -1*i
 	
-	ce_sell = Main_Dict[str(ce_atm + ce_sell_dist*Index_Dist) + 'CE']
-	pe_sell = Main_Dict[str(pe_atm + pe_sell_dist*Index_Dist) + 'PE']
+	ce_sell = Main_Dict[str(ce_atm + ce_sell_dist*Index_Dist) + 'CE'].reindex(pd.date_range(Entry_Date + Entry_Time, Exit_Date + Exit_Time, freq = '1min')).between_time('09:16','15:30')
+	pe_sell = Main_Dict[str(pe_atm + pe_sell_dist*Index_Dist) + 'PE'].reindex(pd.date_range(Entry_Date + Entry_Time, Exit_Date + Exit_Time, freq = '1min')).between_time('09:16','15:30')
 	
 	ce_sell_entry, pe_sell_entry = ce_sell.o[Entry_Date + Entry_Time], pe_sell.o[Entry_Date + Entry_Time]
 	ce_sell_exit , pe_sell_exit  = ce_sell.o[Exit_Date + Exit_Time]  , pe_sell.o[Exit_Date + Exit_Time]
@@ -115,10 +112,7 @@ for i in range((Sell_Dist)[0], (Sell_Dist)[1]+1, 1):
 	
 	fig.add_trace(go.Scatter(x=Final_DF.index, y=Final_DF["Change"+str(i)], legendgrouptitle_text = (str(int(i/5)) + "Group"), legendgroup= int(i/5), customdata = Final_DF["FINAL"], name = str(i).rjust(4), hovertemplate='Profit: (%{y:5d} )   |   %{customdata}'))#, visible='legendonly'))
 	
-	Percentage_Completed = Percentage_Completed + 1
 	
-	my_bar.progress((Percentage_Completed)/len(range((Sell_Dist)[0], (Sell_Dist)[1]+1, 1)))
-
 st.write((datetime.now().replace(microsecond=0) - Progress_Strart_time))
 
 fig.add_trace(go.Scatter(x= Index_csv_2.index, y= Index_csv_2["o"], yaxis="y2", name = Index_Name, line=dict(color='blue'), line_width=0.8, legendrank = 1))
