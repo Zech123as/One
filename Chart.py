@@ -12,12 +12,10 @@ st.set_page_config(layout="wide")
 github_session = requests.Session()
 github_session.auth = ('Zech123as', "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")
 
-ST_Form_1 = st.sidebar.form("St_form_1")
+ST_Form = st.sidebar.form("St_form")
 
-Index_Name = ST_Form_1.radio("Select Index", ("NIFTY BANK", "NIFTY 50"))
-Expiry_Dist = ST_Form_1.slider("Select Expiry Distance", min_value = 0, max_value = 40, value = 0)
-
-ST_Form_1.form_submit_button("Submit")
+Index_Name = ST_Form.radio("Select Index", ("NIFTY BANK", "NIFTY 50"))
+Expiry_Dist = ST_Form.slider("Select Expiry Distance", min_value = 0, max_value = 40, value = 0)
 
 if Index_Name == "NIFTY 50":
 	Index_Dist, Lot_Size = 50, 50
@@ -48,15 +46,13 @@ Expiry =  Index_csv_1.time[len(Index_csv_1)-1]
 
 st.write(f'{Expiry.date()}, {Expiry.strftime("%A")}')
 
-ST_Form_2 = st.sidebar.form("St_form_2")
+Entry_Date, Exit_Date = ST_Form.select_slider("Entry & Exit Date Inputs", options = Index_csv_1.time, value = (Index_csv_1.time[0], Index_csv_1.time[len(Index_csv_1.time)-1]), format_func = lambda x: x.date())
+Time_Input = ST_Form.slider("Entry & Exit Time Inputs", min_value = time(9, 15), max_value = time(15, 30), value = (time(9, 30), time(15, 30)), step = timedelta(minutes = 15))
+Buy_Lots  = ST_Form.slider("No of Buy Lots", min_value = 0, max_value = 15, value = 5)
+Buy_Dist  = ST_Form.slider("Buy Distance", min_value = 0, max_value = 30, value = 15)
+Sell_Dist = ST_Form.slider("Sell Distance", min_value = -15, max_value = 40, value = (-15, 20))
 
-Entry_Date, Exit_Date = ST_Form_2.select_slider("Entry & Exit Date Inputs", options = Index_csv_1.time, value = (Index_csv_1.time[0], Index_csv_1.time[len(Index_csv_1.time)-1]), format_func = lambda x: x.date())
-Time_Input = ST_Form_2.slider("Entry & Exit Time Inputs", min_value = time(9, 15), max_value = time(15, 30), value = (time(9, 30), time(15, 30)), step = timedelta(minutes = 15))
-Buy_Lots  = ST_Form_2.slider("No of Buy Lots", min_value = 0, max_value = 15, value = 5)
-Buy_Dist  = ST_Form_2.slider("Buy Distance", min_value = 0, max_value = 30, value = 15)
-Sell_Dist = ST_Form_2.slider("Sell Distance", min_value = -15, max_value = 40, value = (-15, 20))
-
-ST_Form_2.form_submit_button("Submit")
+ST_Form.form_submit_button("Submit")
 
 Entry_Time = timedelta( hours=list(Time_Input)[0].hour, minutes = list(Time_Input)[0].minute )
 Exit_Time  = timedelta( hours=list(Time_Input)[1].hour, minutes = list(Time_Input)[1].minute )
