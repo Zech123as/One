@@ -39,6 +39,38 @@ Main_Dict = Data[Index_Name]
 
 st.write(Main_Dict.keys())
 
-#ST_Form_2 = st.sidebar.form("St_form_2")
 
+
+
+
+Index_csv_1 = Main_Dict["Index_csv_1"]
+
+Expiry =  Index_csv_1.time[len(Index_csv_1)-1]
+
+st.write(f"{Expiry}, {Expiry.strftime("%A")}")
+
+ST_Form_2 = st.sidebar.form("St_form_2")
+
+Entry_Date, Exit_Date = ST_Form_2.select_slider("Entry & Exit Date Inputs", options = Index_csv_1.time, value = (Index_csv_1.time[0], Index_csv_1.time[len(Index_csv_1.time)-1]), format_func = lambda x: x.date())
+Time_Input = ST_Form_2.slider("Entry & Exit Time Inputs", min_value = time(9, 15), max_value = time(15, 30), value = (time(9, 30), time(15, 30)), step = timedelta(minutes = 15))
+Sell_Dist = ST_Form_2.slider("Sell Distance", min_value = -15, max_value = 40, value = (-15, 20))
+
+ST_Form_2.form_submit_button("Submit")
+
+Entry_Time = timedelta( hours=list(Time_Input)[0].hour, minutes = list(Time_Input)[0].minute )
+Exit_Time  = timedelta( hours=list(Time_Input)[1].hour, minutes = list(Time_Input)[1].minute )
+
+Index_csv_2 = Main_Dict["Index_csv_2"]
+
+Index_Entry = Index_csv_2.o[Entry_Date + Entry_Time]
+Index_Exit  = Index_csv_2.o[Exit_Date  + Exit_Time ]
+
+Index_Range_Min, Index_Range_Max = int((Index_csv_2["o"].min()/100)-1)*100, int((Index_csv_2["o"].max()/100)+2)*100
+
+fig = go.Figure(layout = go.Layout(yaxis=dict(domain=[0, 0.69]), yaxis2=dict(domain=[0.7, 1], range=[Index_Range_Min, Index_Range_Max])))
+
+ce_atm = (round(Index_csv_2.o[Entry_Date + Entry_Time]//Index_Dist)-0)*Index_Dist
+pe_atm = (round(Index_csv_2.o[Entry_Date + Entry_Time]//Index_Dist)+1)*Index_Dist
+
+st.write(ce_atm, pe_atm)
 #percent_complete = Max_profit = j = k = 0
