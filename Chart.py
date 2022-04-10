@@ -112,9 +112,6 @@ for i in range((Sell_Dist)[0], (Sell_Dist)[1]+1, 1):
 	
 	fig.add_trace(go.Scatter(x=Final_DF.index, y=Final_DF["Change"+str(i)], legendgrouptitle_text = (str(int(i/5)) + "Group"), legendgroup= int(i/5), customdata = Final_DF["FINAL"], name = str(i).rjust(4), hovertemplate='Profit: (%{y:5d} )   |   %{customdata}'))#, visible='legendonly'))
 	
-	
-st.write((datetime.now().replace(microsecond=0) - Progress_Strart_time))
-
 fig.add_trace(go.Scatter(x= Index_csv_2.index, y= Index_csv_2["o"], yaxis="y2", name = Index_Name, line=dict(color='blue'), line_width=0.8, legendrank = 1))
 
 Index_csv_2["Entry_line"] = Index_Entry
