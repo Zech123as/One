@@ -64,7 +64,7 @@ Index_Exit  = Index_csv_2.o[Exit_Date  + Exit_Time ]
 
 Index_Range_Min, Index_Range_Max = int((Index_csv_2["o"].min()/100)-1)*100, int((Index_csv_2["o"].max()/100)+2)*100
 
-fig = go.Figure(layout = go.Layout(yaxis2=dict(domain=[0, 0.29], range=[-3000, 5000]), yaxis=dict(domain=[0.3, 1], range=[Index_Range_Min, Index_Range_Max])))
+fig = go.Figure(layout = go.Layout(yaxis2=dict(domain=[0, 0.29], range=[Index_Range_Min, Index_Range_Max]), yaxis=dict(domain=[0.3, 1])))
 
 ce_atm = (round(Index_csv_2.o[Entry_Date + Entry_Time]//Index_Dist)-0)*Index_Dist
 pe_atm = (round(Index_csv_2.o[Entry_Date + Entry_Time]//Index_Dist)+1)*Index_Dist
