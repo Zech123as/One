@@ -10,18 +10,17 @@ import os
 
 st.set_page_config(layout="wide")
 
-github_session = requests.Session()
-github_session.auth = ('Zech123as', "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")
-Data = pickle.loads(github_session.get("https://raw.githubusercontent.com/Zech123as/Project-1/main/Expiry_Dict.pkl").content)
-print(Data)
-
 @st.cache(allow_output_mutation=True)
-def Truedata_login(hash_funcs = {TD : id}):
-	td_obj = TD('wssand041', 'sandeep041', live_port=None)
-	return td_obj
+def Github_login(): #hash_funcs = {TD : id}):
+	github_session = requests.Session()
+	github_session.auth = ('Zech123as', "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")
+	return github_session.auth
 
-td_obj = Truedata_login()
+github_session.auth = Github_login
 
+Data = pickle.loads(github_session.get("https://raw.githubusercontent.com/Zech123as/Project-1/main/Expiry_Dict.pkl").content)
+
+"""
 percent_complete = Max_profit = j = k = 0
 
 Expiry_Date = datetime.now().replace(hour=0, minute=0, second=0, microsecond=0)
@@ -154,3 +153,4 @@ fig.update_yaxes(showgrid=True, gridcolor='#e0e0e0', zerolinecolor = '#989c9b')
 fig.update_layout(height = 1200, hovermode = "x unified")
 
 st.plotly_chart(fig, use_container_width = True, config={'displayModeBar': True})
+"""
