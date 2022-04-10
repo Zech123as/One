@@ -122,4 +122,26 @@ for i in range((Sell_Dist)[0], (Sell_Dist)[1]+1, 1):
 	
 	my_bar.progress((Percentage_Completed)/len(range((Sell_Dist)[0], (Sell_Dist)[1]+1, 1)))
 
+st.write((datetime.now().replace(microsecond=0) - Progress_Strart_time))
+
+fig.add_trace(go.Scatter(x= Index_csv_2.index, y= Index_csv_2["o"], yaxis="y2", name = Index_Name, line=dict(color='blue'), line_width=0.8, legendrank = 1))
+
+Index_csv_2["Entry_line"] = Index_Entry
+fig.add_trace(go.Scatter(x=Index_csv_2.index, y = Index_csv_2["Entry_line"], line=dict(color='red'), line_width=0.5, name = "Index Entry", yaxis="y2", showlegend = False))
+
+Final_DF_2 = pd.DataFrame()
+Final_DF_2["Index"] = " ( " + (Index_csv_2['o'] - Index_Entry).map('{:+,.2f}'.format) + " )" + (Index_csv_2['o']).round().astype(int).map('{:,}'.format).str.rjust(7)
+Final_DF_2["Max_Profit_column"] = int((Max_Profit/100) + 1)*100
+
+fig.add_trace(go.Scatter(x=Final_DF_2.index, y = Final_DF_2["Max_Profit_column"], customdata = Final_DF_2["Index"], name = Index_Name, hovertemplate='%{customdata}', legendrank = 2, line=dict(color='red'), line_width=0.5, showlegend = False))
+
+fig.update_xaxes(showspikes=True, spikedash = "solid", spikecolor="red", spikesnap="hovered data", spikemode="across", spikethickness = 0.5)
+fig.update_xaxes(rangebreaks=[dict(bounds=[15.75, 9], pattern="hour")])
+fig.update_xaxes(rangeslider_visible=True)
+fig.update_xaxes(showgrid=False)
+
+fig.update_yaxes(showgrid=True, gridcolor='#e0e0e0', zerolinecolor = '#989c9b')
+
+fig.update_layout(height = 1200, hovermode = "x unified")
+
 st.plotly_chart(fig, use_container_width = True, config={'displayModeBar': True})
