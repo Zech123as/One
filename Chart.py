@@ -47,7 +47,7 @@ Index_csv_1 = Main_Dict["Index_csv_1"]
 
 Expiry =  Index_csv_1.time[len(Index_csv_1)-1]
 
-st.write(f"{Expiry}, {Expiry.strftime("%A")}")
+st.write(f'{Expiry}, {Expiry.strftime("%A")}')
 
 ST_Form_2 = st.sidebar.form("St_form_2")
 
