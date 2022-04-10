@@ -9,23 +9,22 @@ import os
 
 st.set_page_config(layout="wide")
 
-@st.cache(allow_output_mutation=True)
-def Github_login(): #hash_funcs = {TD : id}):
-	github_session = requests.Session()
-	github_session.auth = ('Zech123as', "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")
-	return github_session.auth
+github_session = requests.Session()
+github_session.auth = ('Zech123as', "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")
 
-github_session.auth = Github_login
+end_time_input = datetime.now().replace(hour=0, minute=0, second=0, microsecond=0)
 
-Data = pickle.loads(github_session.get("https://raw.githubusercontent.com/Zech123as/Project-1/main/Expiry_Dict.pkl").content)
+while end_time_input.strftime("%A") != "Thursday":
+	end_time_input = end_time_input - timedelta(days = 1)
+
+
+Data = pickle.loads(github_session.get(f"https://raw.githubusercontent.com/Zech123as/One/main/Expiry_Data/Expiry_Dict_{end_time_input.date()}.pkl").content)
+
+Data.keys()
 
 """
 percent_complete = Max_profit = j = k = 0
 
-Expiry_Date = datetime.now().replace(hour=0, minute=0, second=0, microsecond=0)
-
-while Expiry_Date.strftime("%A") != "Thursday":
-	Expiry_Date = Expiry_Date - timedelta(days = 1)
 
 ST_Form_1 = st.sidebar.form("St_form_1")
 ST_Form_2 = st.sidebar.form("St_form_2")
