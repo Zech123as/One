@@ -44,8 +44,6 @@ Index_csv_1 = Main_Dict["Index_csv_1"]
 
 Expiry =  Index_csv_1.time[len(Index_csv_1)-1]
 
-st.write(f'{Expiry.date()}, {Expiry.strftime("%A")}')
-
 Entry_Date, Exit_Date = ST_Form.select_slider("Entry & Exit Date Inputs", options = Index_csv_1.time, value = (Index_csv_1.time[0], Index_csv_1.time[len(Index_csv_1.time)-1]), format_func = lambda x: x.date())
 Time_Input = ST_Form.slider("Entry & Exit Time Inputs", min_value = time(9, 15), max_value = time(15, 30), value = (time(9, 30), time(15, 30)), step = timedelta(minutes = 15))
 Buy_Lots  = ST_Form.slider("No of Buy Lots", min_value = 0, max_value = 15, value = 5)
@@ -141,6 +139,6 @@ fig.update_xaxes(showgrid=False)
 
 fig.update_yaxes(showgrid=True, gridcolor='#e0e0e0', zerolinecolor = '#989c9b')
 
-fig.update_layout(height = 1200, hovermode = "x")
+fig.update_layout(title = f'{Expiry.date()}, {Expiry.strftime("%A")}', height = 1200, hovermode = "x")
 
 st.plotly_chart(fig, use_container_width = True, config={'displayModeBar': True})
