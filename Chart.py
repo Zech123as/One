@@ -140,6 +140,6 @@ fig.update_xaxes(showgrid=False)
 
 fig.update_yaxes(showgrid=True, gridcolor='#e0e0e0', zerolinecolor = '#989c9b')
 
-fig.update_layout(height = 1200, hovermode = "x unified")
+fig.update_layout(height = 1200, hovermode = "x")
 
 st.plotly_chart(fig, use_container_width = True, config={'displayModeBar': True})
