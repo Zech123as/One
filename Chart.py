@@ -20,7 +20,7 @@ while end_time_input.strftime("%A") != "Thursday":
 
 Data = pickle.loads(github_session.get(f"https://raw.githubusercontent.com/Zech123as/One/main/Expiry_Data/Expiry_Dict_{end_time_input.date()}.pkl").content)
 
-st.write(Data.keys())
+st.write(Data["NIFTY BANK"].keys())
 
 """
 percent_complete = Max_profit = j = k = 0
