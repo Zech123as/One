@@ -115,7 +115,7 @@ for i in range((Sell_Dist)[0], (Sell_Dist)[1]+1, 1):
 	Final_DF["CE_BUY"]  = "CE BUY (" + str(round(ce_buy_entry)).rjust(5) + " |" + ce_buy['o'].round().astype(int).astype(str).str.rjust(5) + " )"
 	Final_DF["PE_BUY"]  = "PE BUY (" + str(round(pe_buy_entry)).rjust(5) + " |" + pe_buy['o'].round().astype(int).astype(str).str.rjust(5) + " )"	
 	
-	Final_DF["FINAL"] = Final_DF["CE_SELL"] + "   |   " + Final_DF["PE_SELL"] + "   |   " + "( " + Final_DF["CE_BUY"] + "   |   " + Final_DF["PE_BUY"] " ) " + " * " + str(Buy_Lots)
+	Final_DF["FINAL"] = Final_DF["CE_SELL"] + "   |   " + Final_DF["PE_SELL"] + "   |   " + "( " + Final_DF["CE_BUY"] + "   |   " + Final_DF["PE_BUY"] + " ) " + " * " + str(Buy_Lots)
 	
 	if Final_DF['Change' + str(i)].max() > Max_Profit:
 		Max_Profit = Final_DF['Change' + str(i)].max()
