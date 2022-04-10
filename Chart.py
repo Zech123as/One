@@ -1,6 +1,5 @@
 from datetime import datetime, timedelta, time
 from plotly.subplots import make_subplots
-from truedata_ws.websocket.TD import TD
 import plotly.graph_objects as go
 import streamlit as st
 import pandas as pd
