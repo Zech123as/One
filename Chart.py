@@ -102,8 +102,6 @@ for i in range((Sell_Dist)[0], (Sell_Dist)[1]+1, 1):
 	ce_sell = Main_Dict[str(ce_atm + ce_sell_dist*Index_Dist) + 'CE']
 	pe_sell = Main_Dict[str(pe_atm + pe_sell_dist*Index_Dist) + 'PE']
 	
-	st.write((str(ce_atm + ce_sell_dist*Index_Dist) + 'CE'), (str(pe_atm + pe_sell_dist*Index_Dist) + 'PE'))
-	
 	ce_sell_entry, pe_sell_entry = ce_sell.o[Entry_Date + Entry_Time], pe_sell.o[Entry_Date + Entry_Time]
 	ce_sell_exit , pe_sell_exit  = ce_sell.o[Exit_Date + Exit_Time]  , pe_sell.o[Exit_Date + Exit_Time]
 	
