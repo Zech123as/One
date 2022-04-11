@@ -77,7 +77,7 @@ while Entry_Date + timedelta(days = k) != Exit_Date:
 	Date_Divider    = Entry_Date + timedelta(days=k+1, hours=9, minutes=7)
 	Date_Divider_DF = pd.DataFrame({"Index_Time": [Date_Divider, Date_Divider], "Index_Value": [Index_Range_Min, Index_Range_Max]})
 	
-	fig.add_trace(go.Scatter(x=Date_Divider_DF["Index_Time"], y = Date_Divider_DF["Index_Value"], name = "Index Test", yaxis="y2", mode='lines', line=dict(color='#bab6b6'), line_width=0.7, showlegend = False))
+	fig.add_trace(go.Scatter(mode='markers', x=Date_Divider_DF["Index_Time"], y = Date_Divider_DF["Index_Value"], name = "Index Test", yaxis="y2", mode='lines', line=dict(color='#bab6b6'), line_width=0.7, showlegend = False))
 	fig.add_vline(x= Date_Divider, line_width=0.7, line_dash="solid", line_color="#bab6b6")
 	
 	k = k + 1
@@ -119,9 +119,9 @@ for i in range((Sell_Dist)[0], (Sell_Dist)[1]+1, 1):
 		Max_Profit = Final_DF['Change' + str(i)].max()
 	
 	#fig.add_trace(go.Scatter(x=Final_DF.index, y=Final_DF["Change"+str(i)], legendgrouptitle_text = (str(int(i/5)) + "Group"), legendgroup= int(i/5), name = str(i).rjust(4), hovertemplate='Profit: (%{y:5d} )'))
-	fig.add_trace(go.Scatter(x=Final_DF.index, y=Final_DF["Change"+str(i)], legendgrouptitle_text = (str(int(i/5)) + "Group"), legendgroup= int(i/5), customdata = Final_DF["FINAL"], name = str(i).rjust(4), hovertemplate='Profit: (%{y:5d} )   |   %{customdata}'))#, visible='legendonly'))
+	fig.add_trace(go.Scatter(mode='markers', x=Final_DF.index, y=Final_DF["Change"+str(i)], legendgrouptitle_text = (str(int(i/5)) + "Group"), legendgroup= int(i/5), customdata = Final_DF["FINAL"], name = str(i).rjust(4), hovertemplate='Profit: (%{y:5d} )   |   %{customdata}'))#, visible='legendonly'))
 	
-fig.add_trace(go.Scatter(x= Index_csv_2.index, y= Index_csv_2["o"], yaxis="y2", name = Index_Name, line=dict(color='blue'), line_width=0.8, legendrank = 1))
+fig.add_trace(go.Scatter(mode='markers', x= Index_csv_2.index, y= Index_csv_2["o"], yaxis="y2", name = Index_Name, line=dict(color='blue'), line_width=0.8, legendrank = 1))
 
 Index_csv_2["Entry_line"] = Index_Entry
 fig.add_trace(go.Scatter(x=Index_csv_2.index, y = Index_csv_2["Entry_line"], line=dict(color='red'), line_width=0.5, name = "Index Entry", yaxis="y2", showlegend = False))
